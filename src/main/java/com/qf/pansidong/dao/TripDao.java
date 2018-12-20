@@ -24,4 +24,10 @@ public interface TripDao {
     void updateTravel(TripDetails tripDetails);
 
     void deleteTravel(String travalid);
+
+    int searchTravel();
+
+    List<TripDetails> searchTravelByName(String name, int offset, int pageSize);
+
+    void deleteTravels(String sql,String[] strings);
 }

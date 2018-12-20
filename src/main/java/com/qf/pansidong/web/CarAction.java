@@ -2,13 +2,14 @@ package com.qf.pansidong.web;
 
 import com.qf.pansidong.pojo.vo.Car;
 import com.qf.pansidong.pojo.vo.PageVo;
-import com.qf.pansidong.service.CarService;
 import com.qf.pansidong.service.impl.CarServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 @Controller
 public class CarAction {
 
@@ -32,10 +33,25 @@ public class CarAction {
     }
 
     @ResponseBody
-    @GetMapping("/addcar")
+    @PostMapping("/addcar")
     //增加车的数量
-    public String addCar(Car car){
-        System.out.println(car);
+    public String addCar(@RequestBody Map map){
+        Car car = new Car();
+        System.out.println(map);
+        String car_name = (String)map.get("car_name");
+        String price_week1 =(String)map.get("price_week");
+        String price_day1 =(String)map.get("price_day");
+        Double price_week= Double.parseDouble(price_week1);
+        Double price_day = Double.parseDouble(price_day1);
+        String seller_phone = (String)map.get("seller_phone");
+        String pick_address = (String)map.get("pick_address");
+        String back_address = (String)map.get("back_address");
+        car.setCar_name(car_name);
+        car.setPrice_week(price_week);
+        car.setPrice_day(price_day);
+        car.setSeller_phone(seller_phone);
+        car.setPick_address(pick_address);
+        car.setBack_address(back_address);
         int i = carService.addCar(car);
         if(i==1){
             return "add Seccuse";
@@ -51,9 +67,27 @@ public class CarAction {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/upcar" , method = RequestMethod.GET)
+    @RequestMapping(value = "/upcar" , method = RequestMethod.POST)
     //修改车的信息
     public String updateCar(Car car){
+       /* Car car = new Car();
+        System.out.println(map);
+        String cid = (String)map.get("cid");
+        String car_name = (String)map.get("car_name");
+        String price_week1 =(String)map.get("price_week");
+        String price_day1 =(String)map.get("price_day");
+        Double price_week= Double.parseDouble(price_week1);
+        Double price_day = Double.parseDouble(price_day1);
+        String seller_phone = (String)map.get("seller_phone");
+        String pick_address = (String)map.get("pick_address");
+        String back_address = (String)map.get("back_address");
+        car.setCid(cid);
+        car.setCar_name(car_name);
+        car.setPrice_week(price_week);
+        car.setPrice_day(price_day);
+        car.setSeller_phone(seller_phone);
+        car.setPick_address(pick_address);
+        car.setBack_address(back_address);*/
         System.out.println(car);
         int i = carService.updateCar(car);
         if(i==1){

@@ -1,34 +1,63 @@
 package com.qf.pansidong.pojo.vo;
 
 public class User {
-    private int age;
-    private String username;
-    private String password;
-    public int getAge() {
-        return age;
-    }
+   private String uid;
+   private String uname;
+   private String upwd;
+   private String ucardld;
+   private String uphone;
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+   public User() {
+   }
 
-    public String getUsername() {
-        return username;
-    }
+   public String getUid() {
+      return uid;
+   }
 
-    public void setUsername(String username) {
-        this.username = username;
-        //注释
-        //撒
-        //搜索
-        //ads
-    }
+   public void setUid(String uid) {
+      this.uid = uid;
+   }
 
-    public String getPassword() {
-        return password;
-    }
+   public String getUname() {
+      return uname;
+   }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+   public void setUname(String uname) {
+      this.uname = uname;
+   }
+
+   public String getUpwd() {
+      return upwd;
+   }
+
+   public void setUpwd(String upwd) {
+      this.upwd = upwd;
+   }
+
+   public String getUcardld() {
+      return ucardld;
+   }
+
+   public void setUcardld(String ucardld) {
+      this.ucardld = ucardld;
+   }
+
+   public String getUphone() {
+      return uphone;
+   }
+
+   public void setUphone(String uphone) {
+      this.uphone = uphone;
+   }
+
+   @Override
+   public String toString() {
+      return "User{" +
+              "uid='" + uid + '\'' +
+              ", uname='" + uname + '\'' +
+              ", upwd='" + upwd + '\'' +
+              ", ucardld='" + ucardld + '\'' +
+              ", uphone='" + uphone + '\'' +
+              '}';
+   }
 }

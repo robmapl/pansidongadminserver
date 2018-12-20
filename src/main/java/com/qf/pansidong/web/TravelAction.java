@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -66,6 +67,21 @@ public class TravelAction {
     @DeleteMapping("/deleteTravel")
     public PageVo<TripDetails> deleteTravel(String travalid,int currentPage){
         service.deleteTravel(travalid);
+        return service.listTrip(currentPage);
+    }
+
+    @ResponseBody
+    @GetMapping("/searchTravel")
+    public PageVo<TripDetails> searchTravel(@RequestParam(defaultValue = "1") int currentPage,String name){
+        return service.searchTravel(currentPage,name);
+
+    }
+
+    @ResponseBody
+    @DeleteMapping("/deleteTravels")
+    public PageVo<TripDetails> deleteTravels(int currentPage,String ids){
+        String[] strings = ids.split("::");
+       service.deleteTravels(strings);
         return service.listTrip(currentPage);
     }
 }

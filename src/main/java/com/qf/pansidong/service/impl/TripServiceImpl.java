@@ -18,10 +18,15 @@ public class TripServiceImpl implements TripService {
     @Override
     public PageVo<TripDetails> listTrip(int currentPage) {
         PageVo<TripDetails> pvo = new PageVo<>();
-        pvo.setCurrentPage(currentPage);
+
         pvo.setPageSize(8);
         List<TripDetails> list1 = tripDao.listTrip();
         pvo.setTotalNum(list1.size());
+        if(currentPage>pvo.getTotalPage()){
+            pvo.setCurrentPage(currentPage-1);
+        }else{
+            pvo.setCurrentPage(currentPage);
+        }
         List<TripDetails> list2 = tripDao.listTripByPage(pvo.getOffset(),pvo.getPageSize());
         pvo.setListData(list2);
         return pvo;
@@ -74,5 +79,26 @@ public class TripServiceImpl implements TripService {
     @Override
     public void deleteTravel(String travalid) {
         tripDao.deleteTravel(travalid);
+    }
+
+    @Override
+    public PageVo<TripDetails> searchTravel(int currentPage,String name) {
+        PageVo<TripDetails> pvo = new PageVo<>();
+        pvo.setCurrentPage(currentPage);
+        pvo.setPageSize(8);
+        pvo.setTotalNum(tripDao.searchTravel());
+        List<TripDetails> list = tripDao.searchTravelByName(name,pvo.getOffset(),pvo.getPageSize());
+        pvo.setListData(list);
+        System.out.println(list);
+        return pvo;
+    }
+
+    @Override
+    public void deleteTravels(String[] strings) {
+        String sql = "DELETE FROM trip_details WHERE 1=2 ";
+        for(int i=0;i<strings.length;i++){
+            sql+=" or travalid=?";
+        }
+        tripDao.deleteTravels(sql,strings);
     }
 }

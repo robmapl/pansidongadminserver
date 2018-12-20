@@ -26,5 +26,8 @@
     <!--<bean id="userDaoImpl" class="com.qf.admin.dao.impl.UserDaoImpl">-->
     <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
     <!--</bean>-->
-
+    <!--sun-->
+    <bean id="ticketDao" class="com.qf.pansidong.dao.impl.ticketDaoImpl"><!--放实现类，接口不能被实例化！-->
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
 </beans>

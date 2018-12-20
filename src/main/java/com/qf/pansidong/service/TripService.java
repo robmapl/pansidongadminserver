@@ -22,4 +22,8 @@ public interface TripService {
     void updateTravel(TripDetails tripDetails);
 
     void deleteTravel(String travalid);
+
+    PageVo<TripDetails> searchTravel(int currentPage,String name);
+
+    void deleteTravels(String[] strings);
 }

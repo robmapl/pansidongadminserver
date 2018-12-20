@@ -126,4 +126,33 @@ public class TripDaoImpl implements TripDao{
         String sql="DELETE from trip_details where travalid=?";
         jdbcTemplate.update(sql,travalid);
     }
+
+    @Override
+    public int searchTravel() {
+        String sql="SELECT COUNT(*)\n" +
+                "FROM (SELECT travalid,td.tname,tprice,timage,start_time,end_time,tdestination,tt.tname AS typename \n" +
+                " FROM trip_details AS td JOIN trip_type AS tt ON td.ttid=tt.ttid ) AS a\n" +
+                "WHERE tname LIKE CONCAT('%','胡','%') OR tdestination LIKE CONCAT('%','胡','%')";
+        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class);
+        return integer;
+    }
+
+    @Override
+    public List<TripDetails> searchTravelByName(String name, int offset, int pageSize) {
+        String sql="SELECT a.* \n" +
+                "FROM (SELECT travalid,td.tname,tprice,timage,start_time,end_time,tdestination,tt.tname AS typename \n" +
+                " FROM trip_details AS td JOIN trip_type AS tt ON td.ttid=tt.ttid ) AS a\n" +
+                "WHERE tname LIKE CONCAT('%',?,'%') OR tdestination LIKE CONCAT('%',?,'%') limit ?,?";
+        return jdbcTemplate.query(sql, new Object[]{name, name, offset, pageSize}, new RowMapper<TripDetails>() {
+            @Override
+            public TripDetails mapRow(ResultSet resultSet, int i) throws SQLException {
+                return mapRowHandler(resultSet);
+            }
+        });
+    }
+
+    @Override
+    public void deleteTravels(String sql,String[] strings) {
+        jdbcTemplate.update(sql,strings);
+    }
 }

@@ -36,6 +36,7 @@ public class CarServiceImpl {
     }
 
     public Car getCarById(String cid) {
+        System.out.println(carDao.getCarById(cid));
         return carDao.getCarById(cid);
     }
 
